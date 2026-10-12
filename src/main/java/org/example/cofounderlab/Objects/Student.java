@@ -1,0 +1,43 @@
+package org.example.cofounderlab.Objects;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.example.cofounderlab.Enums.AdTitle;
+import org.example.cofounderlab.Service.AdService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "students")
+public class Student {
+
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "year")
+    private int year;
+
+//    @Autowired
+//    private AdService adService;
+//
+//    public Ad createAdForStudent(Long studentId, AdTitle title, String description, LocalDate deadline, String studentTg) {
+//        return adService.createAd(title, description, deadline, studentTg, studentId);
+//    }
+
+}
