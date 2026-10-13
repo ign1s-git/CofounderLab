@@ -8,6 +8,8 @@ import org.example.cofounderlab.Service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,11 +35,9 @@ public class Student {
     @Column(name = "year")
     private int year;
 
-//    @Autowired
-//    private AdService adService;
-//
-//    public Ad createAdForStudent(Long studentId, AdTitle title, String description, LocalDate deadline, String studentTg) {
-//        return adService.createAd(title, description, deadline, studentTg, studentId);
-//    }
+    @Column(name = "ads")
+    private List<Long> ads = new ArrayList<>();
+
+
 
 }
