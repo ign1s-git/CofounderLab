@@ -45,7 +45,43 @@ public class StudentService {
             studentRepository.save(student);
             adService.deleteAd(id);
         }
+    }
 
+    public Ad updateAdForStudent(Long id, AdTitle title, String description, LocalDate deadline, String studentTg) {
+        Ad ad = adService.findAdById(id);
+        if(ad == null) {
+            throw new RuntimeException("Ad not found");
+        }
+        Student student = studentRepository.findById(ad.getStudentId()).orElse(null);
+        if (student == null) {
+            throw new RuntimeException("Student not found");
+        }
+        return adService.updateAd(id, title, description, deadline, studentTg);
+    }
+
+    public Student createStudent(Long id, String name, String surname, String department, int year, List<Long> ads) {
+        Student student = new Student(id, name, surname, department, year, ads);
+        return studentRepository.save(student);
+    }
+
+    public Student updateStudent(Long id, String name, String surname, String department, int year) {
+        Student student = studentRepository.findById(id).orElse(null);
+        if (student == null) {
+            throw new RuntimeException("Student not found");
+        }
+        student.setName(name);
+        student.setSurname(surname);
+        student.setDepartment(department);
+        student.setYear(year);
+        return studentRepository.save(student);
+    }
+
+    public void deleteStudent(Long id) {
+        Student student = studentRepository.findById(id).orElse(null);
+        if (student == null) {
+            throw new RuntimeException("Student not found");
+        }
+        studentRepository.delete(student);
     }
 
     public List<Student> getStudents() {

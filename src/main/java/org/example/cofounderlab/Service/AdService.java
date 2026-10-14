@@ -26,6 +26,18 @@ public class AdService {
         return ad;
     }
 
+    public Ad updateAd (Long id,AdTitle adTitle,String description , LocalDate deadline, String studentTg){
+        Ad ad = findAdById(id);
+        if (ad==null){
+            throw new RuntimeException("No ad found with id " + id);
+        }
+        ad.setTitle(adTitle);
+        ad.setDescription(description);
+        ad.setDeadline(deadline);
+        ad.setStudentTg(studentTg);
+        return  adRepository.save(ad);
+    }
+
     public void deleteAd(Long id) {
         adRepository.deleteById(id);
     }
