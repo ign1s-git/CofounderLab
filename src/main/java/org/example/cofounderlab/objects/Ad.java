@@ -1,10 +1,10 @@
-package org.example.cofounderlab.Objects;
+package org.example.cofounderlab.objects;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.cofounderlab.Enums.AdTitle;
-import org.example.cofounderlab.Enums.AdStatus;
+import org.example.cofounderlab.enums.AdTitle;
+import org.example.cofounderlab.enums.AdStatus;
 import java.time.LocalDate;
 
 @Getter
@@ -30,16 +30,16 @@ public class Ad {
     private LocalDate deadline;
 
     @Column (name = "studentTg", length = 20)
-    private String studentTg;
+    private String studentContact;
 
     @Column(name = "studentId")
     private Long studentId;
 
-    public Ad(AdTitle title, String description, LocalDate deadline, String studentTg, Long studentId) {
+    public Ad(AdTitle title, String description, LocalDate deadline, String studentContact, Long studentId) {
         this.title = title;
         this.description = description;
         this.deadline = deadline;
-        this.studentTg = studentTg;
+        this.studentContact = studentContact;
         this.studentId = studentId;
     }
 

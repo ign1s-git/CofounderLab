@@ -1,4 +1,4 @@
-package org.example.cofounderlab.Enums;
+package org.example.cofounderlab.enums;
 
 public enum AdStatus {
     OPEN,

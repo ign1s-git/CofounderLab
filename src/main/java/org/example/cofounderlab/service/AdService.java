@@ -1,7 +1,7 @@
-package org.example.cofounderlab.Service;
+package org.example.cofounderlab.service;
 
-import org.example.cofounderlab.Enums.AdTitle;
-import org.example.cofounderlab.Objects.Ad;
+import org.example.cofounderlab.enums.AdTitle;
+import org.example.cofounderlab.objects.Ad;
 import org.example.cofounderlab.repositories.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,13 +34,15 @@ public class AdService {
         ad.setTitle(adTitle);
         ad.setDescription(description);
         ad.setDeadline(deadline);
-        ad.setStudentTg(studentTg);
+        ad.setStudentContact(studentTg);
         return  adRepository.save(ad);
     }
 
-    public void deleteAd(Long id) {
+    public List<Ad> getAllAds(){
+        return adRepository.findAll();
+    }
+void deleteAd(Long id) {
         adRepository.deleteById(id);
     }
-
 
 }

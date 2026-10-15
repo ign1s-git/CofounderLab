@@ -1,8 +1,8 @@
-package org.example.cofounderlab.Service;
+package org.example.cofounderlab.service;
 
-import org.example.cofounderlab.Enums.AdTitle;
-import org.example.cofounderlab.Objects.Ad;
-import org.example.cofounderlab.Objects.Student;
+import org.example.cofounderlab.enums.AdTitle;
+import org.example.cofounderlab.objects.Ad;
+import org.example.cofounderlab.objects.Student;
 import org.example.cofounderlab.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +24,12 @@ public class StudentService {
         return studentRepository.findById(studentId).orElse(null);
     }
 
-    public Ad createAdForStudent(Long studentId, AdTitle title, String description, LocalDate deadline, String studentTg) {
+    public Ad createAdForStudent(Long studentId, AdTitle title, String description, LocalDate deadline, String studentContact) {
         Student student = findStudentById(studentId);
         if (student == null) {
             throw new RuntimeException("Student not found");
         }
-        Ad ad = adService.createAd(title, description, deadline, studentTg, studentId);
+        Ad ad = adService.createAd(title, description, deadline, studentContact, studentId);
         student.getAds().add(ad.getId());
         studentRepository.save(student);
         return ad;
@@ -47,7 +47,7 @@ public class StudentService {
         }
     }
 
-    public Ad updateAdForStudent(Long id, AdTitle title, String description, LocalDate deadline, String studentTg) {
+    public Ad updateAdForStudent(Long id, AdTitle title, String description, LocalDate deadline, String studentContact) {
         Ad ad = adService.findAdById(id);
         if(ad == null) {
             throw new RuntimeException("Ad not found");
@@ -56,15 +56,15 @@ public class StudentService {
         if (student == null) {
             throw new RuntimeException("Student not found");
         }
-        return adService.updateAd(id, title, description, deadline, studentTg);
+        return adService.updateAd(id, title, description, deadline, studentContact);
     }
 
-    public Student createStudent(Long id, String name, String surname, String department, int year, List<Long> ads) {
-        Student student = new Student(id, name, surname, department, year, ads);
+    public Student createStudent(Long id, String name, String surname, String department, int year, List<Long> ads,String contact) {
+        Student student = new Student(id, name, surname, department, year, ads,contact);
         return studentRepository.save(student);
     }
 
-    public Student updateStudent(Long id, String name, String surname, String department, int year) {
+    public Student updateStudent(Long id, String name, String surname, String department, int year,String contact) {
         Student student = studentRepository.findById(id).orElse(null);
         if (student == null) {
             throw new RuntimeException("Student not found");
@@ -73,6 +73,7 @@ public class StudentService {
         student.setSurname(surname);
         student.setDepartment(department);
         student.setYear(year);
+        student.setContact(contact);
         return studentRepository.save(student);
     }
 
@@ -84,8 +85,8 @@ public class StudentService {
         studentRepository.delete(student);
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
     }
 
 }
