@@ -1,14 +1,10 @@
 package org.example.cofounderlab.objects;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.example.cofounderlab.enums.AdTitle;
 import org.example.cofounderlab.enums.AdStatus;
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "ads")
 public class Ad {
@@ -29,7 +25,7 @@ public class Ad {
     @Column(name = "deadline")
     private LocalDate deadline;
 
-    @Column (name = "studentTg", length = 20)
+    @Column (name = "studentTg", length = 64)
     private String studentContact;
 
     @Column(name = "studentId")
@@ -45,5 +41,61 @@ public class Ad {
 
     public Ad() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public AdTitle getTitle() {
+        return title;
+    }
+
+    public void setTitle(AdTitle title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public AdStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AdStatus status) {
+        this.status = status;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getStudentContact() {
+        return studentContact;
+    }
+
+    public void setStudentContact(String studentContact) {
+        this.studentContact = studentContact;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }

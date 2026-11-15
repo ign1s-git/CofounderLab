@@ -3,7 +3,10 @@ package org.example.cofounderlab.controllers;
 import org.example.cofounderlab.objects.Student;
 import org.example.cofounderlab.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,19 +26,21 @@ public class StudentController {
         return studentService.findAllStudents();
     }
 
-    @PostMapping
-    public Student createStudent(@RequestBody Student student){
-        return studentService.createStudent(student.getId(),student.getName(), student.getSurname(),
-                student.getDepartment(),student.getYear(),student.getAds(),student.getContact());
-    }
-
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Long id, @RequestBody Student student){
+    public Student updateStudent(@PathVariable Long id, @RequestBody Student student, @AuthenticationPrincipal Long studentId){
+        checkSelf(id, studentId);
         return studentService.updateStudent(id, student.getName(),student.getSurname(),student.getDepartment(),student.getYear(),student.getContact());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id){
+    public void deleteStudent(@PathVariable Long id, @AuthenticationPrincipal Long studentId){
+        checkSelf(id, studentId);
         studentService.deleteStudent(id);
+    }
+
+    private void checkSelf(Long id, Long studentId) {
+        if (!id.equals(studentId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only change your own profile");
+        }
     }
 }

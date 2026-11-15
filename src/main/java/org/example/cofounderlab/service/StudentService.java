@@ -4,11 +4,14 @@ import org.example.cofounderlab.enums.AdTitle;
 import org.example.cofounderlab.objects.Ad;
 import org.example.cofounderlab.objects.Student;
 import org.example.cofounderlab.repositories.StudentRepository;
+import org.example.cofounderlab.validation.InputValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.example.cofounderlab.validation.InputValidator.clean;
 
 @Service
 public class StudentService {
@@ -29,6 +32,9 @@ public class StudentService {
         if (student == null) {
             throw new RuntimeException("Student not found");
         }
+        description = clean(description);
+        studentContact = clean(studentContact);
+        InputValidator.validateAd(title, description, deadline, studentContact, null);
         Ad ad = adService.createAd(title, description, deadline, studentContact, studentId);
         student.getAds().add(ad.getId());
         studentRepository.save(student);
@@ -56,6 +62,9 @@ public class StudentService {
         if (student == null) {
             throw new RuntimeException("Student not found");
         }
+        description = clean(description);
+        studentContact = clean(studentContact);
+        InputValidator.validateAd(title, description, deadline, studentContact, ad.getDeadline());
         return adService.updateAd(id, title, description, deadline, studentContact);
     }
 
@@ -69,6 +78,11 @@ public class StudentService {
         if (student == null) {
             throw new RuntimeException("Student not found");
         }
+        name = clean(name);
+        surname = clean(surname);
+        department = clean(department);
+        contact = clean(contact);
+        InputValidator.validateProfile(name, surname, department, year, contact);
         student.setName(name);
         student.setSurname(surname);
         student.setDepartment(department);

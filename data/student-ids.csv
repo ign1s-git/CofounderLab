@@ -1,0 +1,10 @@
+# Student IDs allowed to register in CofounderLab — one per line (first column of a CSV also works).
+# TEST IDs: replace them with the official list from the university.
+student_id
+202600001
+202600002
+202600003
+202600004
+202600005
+202512345
+202412345

@@ -1,10 +1,9 @@
 package org.example.cofounderlab;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CoFounderLabApplicationTests {
+// Uses the test database and secret from ApiTestBase instead of data/cofounderlab.db
+class CoFounderLabApplicationTests extends ApiTestBase {
 
     @Test
     void contextLoads() {
